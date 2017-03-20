@@ -6,6 +6,7 @@ import time
 from menu import Menu
 from player import Player
 from bug import Bug
+from results import Results
 
 pygame.init()
 ''' Вікно '''
@@ -26,7 +27,7 @@ left = right = False
 sprite_group = pygame.sprite.Group()
 sprite_group.add(player)
 bug_army = []
-timer_init = time.time() + 60
+timer_init = time.time() + 30
 
 
 def timer():
@@ -69,6 +70,8 @@ while True:
     info_screen.blit(inf_font.render(u'Багов закрыто: '+str(player.bug_kill), 1, (212, 120, 49)),(10,5))
     info_screen.blit(inf_font.render(u'Время до релиза: ' + str(int(timer())), 1, (212, 120, 49)), (250, 5))
     info_screen.blit(inf_font.render(u'Багов в релизе: ' + str(player.bug_miss), 1, (212, 120, 49)), (550, 5))
+    if timer() < 0:
+        Results(player.bug_kill).results(window)
     window.blit(info_screen, (0, 0))
     window.blit(screen, (0, 30))
 
