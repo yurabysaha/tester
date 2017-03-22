@@ -12,7 +12,7 @@ class NotBug(Sprite):
         self.rect.x = x
         self.rect.y = y
         self.speed = speed
-
+    #test
     def move(self, player, bug_police):
         if self.rect.y < 600:
             self.rect.y += self.speed
