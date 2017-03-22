@@ -4,6 +4,7 @@ import sys, pygame
 import time
 
 from menu import Menu
+from not_bug import NotBug
 from player import Player
 from bug import Bug
 from results import Results
@@ -27,6 +28,7 @@ left = right = False
 sprite_group = pygame.sprite.Group()
 sprite_group.add(player)
 bug_army = []
+bug_police = []
 timer_init = time.time() + 30
 
 
@@ -48,6 +50,7 @@ while True:
                 right = False
             if event.key == pygame.K_ESCAPE:
                 menu.menu(window)
+    time.sleep(0.001)
 
     '''Заливка'''
     screen.fill((80, 80, 80))
@@ -58,19 +61,30 @@ while True:
     if len(bug_army) < 4:
         while len(bug_army) != 4:
             rand = random.randrange(10, 750)
-            rand_speed = random.randrange(1, 5)
+            rand_speed = random.randrange(1, 2)
             bug = Bug(x=rand, speed=rand_speed)
             bug_army.append(bug)
             sprite_group.add(bug)
+    # Створюємо не баги
+    if len(bug_police) < 2:
+        while len(bug_police) != 2:
+            rand = random.randrange(10, 750)
+            rand_speed = random.randrange(1, 2)
+            notbug = NotBug(x=rand, speed=rand_speed)
+            bug_police.append(notbug)
+            sprite_group.add(notbug)
     sprite_group.draw(screen)
 
     for b in bug_army:
         b.move(player, bug_army)
+    for b in bug_police:
+        b.move(player, bug_police)
 
     info_screen.blit(inf_font.render(u'Багов закрыто: '+str(player.bug_kill), 1, (212, 120, 49)),(10,5))
     info_screen.blit(inf_font.render(u'Время до релиза: ' + str(int(timer())), 1, (212, 120, 49)), (250, 5))
     info_screen.blit(inf_font.render(u'Багов в релизе: ' + str(player.bug_miss), 1, (212, 120, 49)), (550, 5))
-    if timer() < 0:
+
+    if timer() < 0 or player.bug_kill == -1:
         Results(player.bug_kill).results(window)
     window.blit(info_screen, (0, 0))
     window.blit(screen, (0, 30))

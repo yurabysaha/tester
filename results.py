@@ -5,7 +5,10 @@ import sys
 
 class Results:
     def __init__(self, result):
-        self.result = u'Результат: '+ str(result)
+
+        self.result = u'Результат: ' + str(result)
+        if result == -1:
+            self.result = u'Конец игре'
         self.punkti = [[u'Ретест', (340, 270)], [u'Уйти', (350, 320)]]
         self.punkt = 0
 
