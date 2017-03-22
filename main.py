@@ -30,6 +30,7 @@ sprite_group.add(player)
 bug_army = []
 bug_police = []
 timer_init = time.time() + 30
+fps = pygame.time.Clock()
 
 
 def timer():
@@ -61,7 +62,7 @@ while True:
     if len(bug_army) < 4:
         while len(bug_army) != 4:
             rand = random.randrange(10, 750)
-            rand_speed = random.randrange(1, 2)
+            rand_speed = random.randrange(1, 5)
             bug = Bug(x=rand, speed=rand_speed)
             bug_army.append(bug)
             sprite_group.add(bug)
@@ -69,7 +70,7 @@ while True:
     if len(bug_police) < 2:
         while len(bug_police) != 2:
             rand = random.randrange(10, 750)
-            rand_speed = random.randrange(1, 2)
+            rand_speed = random.randrange(1, 5)
             notbug = NotBug(x=rand, speed=rand_speed)
             bug_police.append(notbug)
             sprite_group.add(notbug)
@@ -90,3 +91,4 @@ while True:
     window.blit(screen, (0, 30))
 
     pygame.display.flip()
+    fps.tick(60)

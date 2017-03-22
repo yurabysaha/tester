@@ -2,7 +2,7 @@
 from pygame.image import load
 from pygame.sprite import Sprite
 
-MOVE_SPEED = 3
+MOVE_SPEED = 7
 
 
 class Player(Sprite):
