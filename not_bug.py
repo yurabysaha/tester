@@ -19,7 +19,6 @@ class NotBug(Sprite):
             self.collision(player, bug_police)
         else:
             bug_police.remove(self)
-            player.bug_miss += 1
 
     def collision(self, player, bug_police):
         if collide_rect(self, player):
