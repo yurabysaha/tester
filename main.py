@@ -51,7 +51,6 @@ while True:
                 right = False
             if event.key == pygame.K_ESCAPE:
                 menu.menu(window)
-    time.sleep(0.001)
 
     '''Заливка'''
     screen.fill((80, 80, 80))

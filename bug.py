@@ -7,7 +7,7 @@ from pygame.image import load
 class Bug(Sprite):
     def __init__(self, x=10, y=10, speed=3):
         Sprite.__init__(self)
-        self.image = load("bug1.png")
+        self.image = load("images/bug.png")
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
