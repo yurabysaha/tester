@@ -8,6 +8,7 @@ from not_bug import NotBug
 from player import Player
 from bug import Bug
 from results import Results
+from suriken import Suriken
 
 pygame.init()
 ''' Вікно '''
@@ -29,6 +30,7 @@ sprite_group = pygame.sprite.Group()
 sprite_group.add(player)
 bug_army = []
 bug_police = []
+suriken_move = []
 timer_init = time.time() + 30
 fps = pygame.time.Clock()
 
@@ -44,6 +46,11 @@ while True:
                 left = True
             if event.key == pygame.K_RIGHT:
                 right = True
+            if event.key == pygame.K_SPACE:
+                if suriken_move == []:
+                    suriken = Suriken(x=player.rect.x, y=player.rect.y)
+                    suriken_move.append(suriken)
+                    sprite_group.add(suriken)
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 left = False
@@ -51,6 +58,7 @@ while True:
                 right = False
             if event.key == pygame.K_ESCAPE:
                 menu.menu(window)
+
 
     '''Заливка'''
     screen.fill((80, 80, 80))
@@ -76,9 +84,11 @@ while True:
     sprite_group.draw(screen)
 
     for b in bug_army:
-        b.move(player, bug_army)
+        b.move(player, bug_army, suriken_move)
     for b in bug_police:
         b.move(player, bug_police)
+    for i in suriken_move:
+        i.move(suriken_move)
 
     info_screen.blit(inf_font.render(u'Багов закрыто: '+str(player.bug_kill), 1, (212, 120, 49)),(10,5))
     info_screen.blit(inf_font.render(u'Время до релиза: ' + str(int(timer())), 1, (212, 120, 49)), (250, 5))
