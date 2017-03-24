@@ -23,3 +23,7 @@ class Player(Sprite):
        if right:
            if self.rect.x < 753:
                self.rect.x += MOVE_SPEED
+
+    def suriken(self):
+        suriken = Sprite(-10, 350, 'images/suriken.png')
+        

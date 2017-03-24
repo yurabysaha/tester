@@ -13,16 +13,24 @@ class Bug(Sprite):
         self.rect.y = y
         self.speed = speed
 
-    def move(self, player, bug_army):
+    def move(self, player, bug_army, suriken_move):
         if self.rect.y < 600:
             self.rect.y += self.speed
-            self.collision(player, bug_army)
+            self.collision(player, bug_army, suriken_move)
         else:
             bug_army.remove(self)
             player.bug_miss += 1
 
-    def collision(self, player, bug_army):
+    def collision(self, player, bug_army, suriken_move):
         if collide_rect(self, player):
             self.kill()
             bug_army.remove(self)
             player.bug_kill +=1
+        for i in suriken_move:
+            if collide_rect(self, i):
+                self.kill()
+                i.kill()
+                suriken_move.remove(i)
+                bug_army.remove(self)
+                player.bug_kill += 1
+
