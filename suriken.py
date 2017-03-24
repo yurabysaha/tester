@@ -20,3 +20,7 @@ class Suriken(Sprite):
         else:
             self.kill()
             suriken_move.remove(self)
+
+    def remove(self, suriken_move):
+        self.kill()
+        suriken_move.remove(self)

@@ -101,7 +101,15 @@ while True:
     info_screen.blit(inf_font.render(u'Багов в релизе: ' + str(player.bug_miss), 1, (212, 120, 49)), (550, 5))
 
     if timer.lost_time() < 0 or player.bug_kill == -1:
+        # Після натискання Ретест обнуляємо всі елементи в грі
         Results(player.bug_kill).results(window)
+        player.refresh()
+        timer.start_game()
+        for i in bug_army:
+            i.remove(bug_army)
+        for i in bug_police:
+            i.remove(bug_police)
+
     window.blit(info_screen, (0, 0))
     window.blit(screen, (0, 30))
 
