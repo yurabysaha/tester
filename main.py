@@ -33,7 +33,6 @@ bug_army = []
 bug_police = []
 timer = Timer()
 suriken_move = []
-timer_init = time.time() + 30
 fps = pygame.time.Clock()
 
 
@@ -41,15 +40,6 @@ while True:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
-
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_PAUSE:
-
-            while 1:
-                event = pygame.event.wait()
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_PAUSE:
-
-                    break
-
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
