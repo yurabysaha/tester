@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 import random
 import sys, pygame
-import time
 
 from menu import Menu
 from not_bug import NotBug
 from player import Player
 from bug import Bug
 from results import Results
+from timer import Timer
 from suriken import Suriken
+
 
 pygame.init()
 ''' Вікно '''
@@ -30,34 +31,49 @@ sprite_group = pygame.sprite.Group()
 sprite_group.add(player)
 bug_army = []
 bug_police = []
+timer = Timer()
 suriken_move = []
 timer_init = time.time() + 30
 fps = pygame.time.Clock()
 
 
-def timer():
-    return timer_init - time.time()
-
 while True:
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
+
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_PAUSE:
+
+            while 1:
+                event = pygame.event.wait()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_PAUSE:
+
+                    break
+
+
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 left = True
             if event.key == pygame.K_RIGHT:
                 right = True
+
             if event.key == pygame.K_SPACE:
                 if suriken_move == []:
                     suriken = Suriken(x=player.rect.x, y=player.rect.y)
                     suriken_move.append(suriken)
                     sprite_group.add(suriken)
+
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 left = False
             if event.key == pygame.K_RIGHT:
                 right = False
+
             if event.key == pygame.K_ESCAPE:
+                timer.pause_game()
                 menu.menu(window)
+                timer.unpause_game()
+
 
 
     '''Заливка'''
@@ -91,10 +107,10 @@ while True:
         i.move(suriken_move)
 
     info_screen.blit(inf_font.render(u'Багов закрыто: '+str(player.bug_kill), 1, (212, 120, 49)),(10,5))
-    info_screen.blit(inf_font.render(u'Время до релиза: ' + str(int(timer())), 1, (212, 120, 49)), (250, 5))
+    info_screen.blit(inf_font.render(u'Время до релиза: ' + str(int(timer.lost_time())), 1, (212, 120, 49)), (250, 5))
     info_screen.blit(inf_font.render(u'Багов в релизе: ' + str(player.bug_miss), 1, (212, 120, 49)), (550, 5))
 
-    if timer() < 0 or player.bug_kill == -1:
+    if timer.lost_time() < 0 or player.bug_kill == -1:
         Results(player.bug_kill).results(window)
     window.blit(info_screen, (0, 0))
     window.blit(screen, (0, 30))

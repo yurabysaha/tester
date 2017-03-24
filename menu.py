@@ -2,7 +2,6 @@
 import pygame
 import sys
 
-
 class Menu:
     def __init__(self):
         self.punkti = [[u'Го тестить!', (300, 270)], [u'Уйти', (340, 320)]]
@@ -40,8 +39,10 @@ class Menu:
                         else:
                             sys.exit()
 
+
             screen.fill((40, 110, 120))
             self.render(screen)
             window.blit(screen, (0, 0))
 
             pygame.display.flip()
+
