@@ -65,7 +65,6 @@ while True:
                 timer.unpause_game()
 
 
-
     '''Заливка'''
     screen.fill((80, 80, 80))
     info_screen.fill((50, 50, 50))

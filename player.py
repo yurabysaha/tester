@@ -8,7 +8,7 @@ MOVE_SPEED = 7
 class Player(Sprite):
     def __init__(self, x=10, y=535):
         Sprite.__init__(self)
-        self.image = load("images/player.png")
+        self.image = load("images/player/player.png")
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
