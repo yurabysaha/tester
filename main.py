@@ -2,6 +2,7 @@
 import random
 import sys, pygame
 
+from bonus import Bonus
 from menu import Menu
 from not_bug import NotBug
 from player import Player
@@ -13,14 +14,14 @@ from suriken import Suriken
 
 pygame.init()
 ''' Вікно '''
-size = width, height = 800, 630
+size = width, height = 600, 630
 window = pygame.display.set_mode(size)
 ''' Скріни '''
-info_screen = pygame.Surface((800, 30))
-screen = pygame.Surface((800, 600))
+info_screen = pygame.Surface((600, 30))
+screen = pygame.Surface((600, 600))
 '''Шрифти'''
 pygame.font.init()
-inf_font = pygame.font.Font(None, 32)
+inf_font = pygame.font.Font(None, 25)
 '''Меню'''
 menu = Menu()
 menu.menu(window)
@@ -31,6 +32,7 @@ sprite_group = pygame.sprite.Group()
 sprite_group.add(player)
 bug_army = []
 bug_police = []
+bonus_array = []
 timer = Timer()
 suriken_move = []
 fps = pygame.time.Clock()
@@ -48,7 +50,7 @@ while True:
                 right = True
 
             if event.key == pygame.K_SPACE:
-                if suriken_move == []:
+                if not suriken_move:
                     suriken = Suriken(x=player.rect.x, y=player.rect.y)
                     suriken_move.append(suriken)
                     sprite_group.add(suriken)
@@ -64,7 +66,6 @@ while True:
                 menu.menu(window)
                 timer.unpause_game()
 
-
     '''Заливка'''
     screen.fill((80, 80, 80))
     info_screen.fill((50, 50, 50))
@@ -73,7 +74,7 @@ while True:
     # Створюємо баги
     if len(bug_army) < 4:
         while len(bug_army) != 4:
-            rand = random.randrange(10, 750)
+            rand = random.randrange(10, 550)
             rand_speed = random.randrange(1, 5)
             bug = Bug(x=rand, speed=rand_speed)
             bug_army.append(bug)
@@ -81,11 +82,18 @@ while True:
     # Створюємо не баги
     if len(bug_police) < 2:
         while len(bug_police) != 2:
-            rand = random.randrange(10, 750)
+            rand = random.randrange(10, 550)
             rand_speed = random.randrange(1, 5)
             notbug = NotBug(x=rand, speed=rand_speed)
             bug_police.append(notbug)
             sprite_group.add(notbug)
+
+    if not bonus_array and int(timer.lost_time()) % 10 == 0:
+            rand = random.randrange(10, 550)
+            rand_speed = random.randrange(10, 11)
+            bonus = Bonus(x=rand, speed=rand_speed)
+            bonus_array.append(bonus)
+            sprite_group.add(bonus)
     sprite_group.draw(screen)
 
     for b in bug_army:
@@ -94,10 +102,12 @@ while True:
         b.move(player, bug_police)
     for i in suriken_move:
         i.move(suriken_move)
+    for i in bonus_array:
+        i.move(player, bonus_array, timer)
 
-    info_screen.blit(inf_font.render(u'Багов закрыто: '+str(player.bug_kill), 1, (212, 120, 49)),(10,5))
-    info_screen.blit(inf_font.render(u'Время до релиза: ' + str(int(timer.lost_time())), 1, (212, 120, 49)), (250, 5))
-    info_screen.blit(inf_font.render(u'Багов в релизе: ' + str(player.bug_miss), 1, (212, 120, 49)), (550, 5))
+    info_screen.blit(inf_font.render(u'Багов закрыто: '+str(player.bug_kill), 1, (212, 120, 49)), (10,5))
+    info_screen.blit(inf_font.render(u'Время до релиза: ' + str(int(timer.lost_time())), 1, (212, 120, 49)), (190, 5))
+    info_screen.blit(inf_font.render(u'Багов в релизе: ' + str(player.bug_miss), 1, (212, 120, 49)), (400, 5))
 
     if timer.lost_time() < 0 or player.bug_kill == -1:
         # Після натискання Ретест обнуляємо всі елементи в грі

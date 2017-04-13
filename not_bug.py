@@ -7,7 +7,7 @@ from pygame.image import load
 class NotBug(Sprite):
     def __init__(self, x=10, y=10, speed=3):
         Sprite.__init__(self)
-        self.image = load("images/hp.png")
+        self.image = load("images/feature/feature.png")
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -23,7 +23,7 @@ class NotBug(Sprite):
     def collision(self, player, bug_police):
         if collide_rect(self, player):
             self.remove(bug_police)
-            player.bug_kill -=1
+            player.bug_kill -= 2
 
     def remove(self, bug_police):
         self.kill()

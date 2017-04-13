@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 import pygame
 import sys
+from records import Records
+
 
 class Menu:
     def __init__(self):
-        self.punkti = [[u'Го тестить!', (300, 270)], [u'Уйти', (340, 320)]]
+        self.punkti = [[u'Го тестить!', (200, 270)], [u'Рекорд', (220, 320)], [u'Уйти', (240, 370)]]
         self.punkt = 0
 
     def render(self, screen):
@@ -29,16 +31,17 @@ class Menu:
                         else:
                             self.punkt = 0
                     if event.key == pygame.K_UP:
-                        if len(self.punkti) - 1 != self.punkt:
-                            self.punkt += 1
+                        if self.punkt != 0:
+                            self.punkt -= 1
                         else:
-                            self.punkt = 0
+                            self.punkt = len(self.punkti)-1
                     if event.key == pygame.K_SPACE:
                         if self.punkt == 0:
                             done = False
+                        elif self.punkt == 1:
+                            Records().record(window)
                         else:
                             sys.exit()
-
 
             screen.fill((40, 110, 120))
             self.render(screen)
