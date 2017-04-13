@@ -13,15 +13,16 @@ class NotBug(Sprite):
         self.rect.y = y
         self.speed = speed
 
-    def move(self, player, bug_police):
+    def move(self, player, bug_police, screen):
         if self.rect.y < 600:
             self.rect.y += self.speed
-            self.collision(player, bug_police)
+            self.collision(player, bug_police, screen)
         else:
             self.remove(bug_police)
 
-    def collision(self, player, bug_police):
+    def collision(self, player, bug_police, screen):
         if collide_rect(self, player):
+            screen.fill((115, 43, 23))
             self.remove(bug_police)
             player.bug_kill -= 2
         for z in bug_police:

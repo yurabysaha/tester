@@ -13,6 +13,7 @@ from suriken import Suriken
 
 
 pygame.init()
+pygame.mouse.set_visible(False)
 ''' Вікно '''
 size = width, height = 600, 630
 window = pygame.display.set_mode(size)
@@ -30,6 +31,7 @@ player = Player()
 left = right = False
 sprite_group = pygame.sprite.Group()
 sprite_group.add(player)
+
 bug_army = []
 bug_police = []
 bonus_array = []
@@ -99,7 +101,7 @@ while True:
     for b in bug_army:
         b.move(player, bug_army, suriken_move)
     for b in bug_police:
-        b.move(player, bug_police)
+        b.move(player, bug_police, screen)
     for i in suriken_move:
         i.move(suriken_move)
     for i in bonus_array:
@@ -109,7 +111,7 @@ while True:
     info_screen.blit(inf_font.render(u'Время до релиза: ' + str(int(timer.lost_time())), 1, (212, 120, 49)), (190, 5))
     info_screen.blit(inf_font.render(u'Багов в релизе: ' + str(player.bug_miss), 1, (212, 120, 49)), (400, 5))
 
-    if timer.lost_time() < 0 or player.bug_kill == -1:
+    if timer.lost_time() < 0 or player.bug_kill >= -1:
         # Після натискання Ретест обнуляємо всі елементи в грі
         Results(player.bug_kill).results(window)
         player.refresh()

@@ -20,7 +20,6 @@ class Suriken(Sprite):
         self.animation = pyganim.PygAnimation(ANIMATION)
         self.animation.play()
 
-
     def move(self, suriken_move):
         if self.rect.y >= 0:
             self.image.fill(SCREEN_COLOR)
