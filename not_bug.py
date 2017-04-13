@@ -24,6 +24,10 @@ class NotBug(Sprite):
         if collide_rect(self, player):
             self.remove(bug_police)
             player.bug_kill -= 2
+        for z in bug_police:
+            if collide_rect(self, z):
+                self.rect.x -= 20
+                z.rect.x += 20
 
     def remove(self, bug_police):
         self.kill()

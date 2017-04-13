@@ -34,6 +34,10 @@ class Bug(Sprite):
         if collide_rect(self, player):
             self.remove(bug_army)
             player.bug_kill +=1
+        for z in bug_army:
+            if collide_rect(self, z):
+                self.rect.x -= 20
+                z.rect.x += 20
         for i in suriken_move:
             if collide_rect(self, i):
                 self.remove(bug_army)
@@ -42,4 +46,7 @@ class Bug(Sprite):
 
     def remove(self, bug_army):
         self.kill()
-        bug_army.remove(self)
+        try:
+            bug_army.remove(self)
+        except ValueError:
+            pass
