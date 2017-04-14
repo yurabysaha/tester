@@ -28,4 +28,3 @@ class Records:
             window.blit(screen, (0, 0))
 
             pygame.display.flip()
-

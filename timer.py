@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 import time
-from pygame.image import load
-from pygame.sprite import Sprite
 
 DEFAULT_TIME = 30
 
@@ -23,5 +21,3 @@ class Timer(object):
 
     def lost_time(self):
         return self.start - time.time()
-
-

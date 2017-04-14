@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from pygame import Surface
 from pygame.sprite import Sprite, collide_rect
 from pygame.image import load
 

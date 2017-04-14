@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from pygame.sprite import Sprite, collide_rect
-import pyganim
 from pygame.image import load
 from pygame.surface import Surface
 

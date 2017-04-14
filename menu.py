@@ -48,4 +48,3 @@ class Menu:
             window.blit(screen, (0, 0))
 
             pygame.display.flip()
-
