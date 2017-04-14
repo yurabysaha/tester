@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from pygame.sprite import Sprite
 import pyganim
-from pygame.surface import Surface
+from pygame.image import load
 
 MOVE_SPEED = 7
-SCREEN_COLOR = (80, 80, 80)
+SCREEN_COLOR = (180, 180, 180, 0)
 
 ANIMATION = [("images/suriken/suriken.png", 120), ("images/suriken/suriken1.png", 120)]
 
@@ -12,7 +12,7 @@ ANIMATION = [("images/suriken/suriken.png", 120), ("images/suriken/suriken1.png"
 class Suriken(Sprite):
     def __init__(self, x=10, y=535):
         Sprite.__init__(self)
-        self.image = Surface((40,40))
+        self.image = load('images/suriken/suriken.png').convert_alpha()
         self.image.fill(SCREEN_COLOR)
         self.rect = self.image.get_rect()
         self.rect.x = x

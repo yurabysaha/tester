@@ -10,7 +10,7 @@ from bug import Bug
 from results import Results
 from timer import Timer
 from suriken import Suriken
-
+from pygame.image import load
 
 pygame.init()
 pygame.mouse.set_visible(False)
@@ -20,6 +20,7 @@ window = pygame.display.set_mode(size)
 ''' Скріни '''
 info_screen = pygame.Surface((600, 30))
 screen = pygame.Surface((600, 600))
+bg_image = load('images/bg.png')
 '''Шрифти'''
 pygame.font.init()
 inf_font = pygame.font.Font(None, 25)
@@ -69,7 +70,7 @@ while True:
                 timer.unpause_game()
 
     '''Заливка'''
-    screen.fill((80, 80, 80))
+    screen.blit(bg_image, (0, 0))
     info_screen.fill((50, 50, 50))
 
     player.move(left, right)
@@ -113,7 +114,7 @@ while True:
 
     if timer.lost_time() < 0 or player.bug_kill <= -1:
         # Після натискання Ретест обнуляємо всі елементи в грі
-        Results(player.bug_kill).results(window)
+        Results(player).results(window)
         player.refresh()
         timer.start_game()
         for i in bug_army:

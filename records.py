@@ -5,7 +5,7 @@ import sys
 
 class Records:
     def __init__(self):
-        self.punkti = [[u'User1 = 450 багів', (250, 170)], [u'User2 = 420 багів', (250, 220)], [u'User3 = 390 багів', (250, 270)]]
+        self.punkti = [[u'User1 = 450 $', (250, 170)], [u'User2 = 420 $', (250, 220)], [u'User3 = 390 $', (250, 270)]]
 
     def render(self, screen):
         menu_font = pygame.font.Font(None, 50)

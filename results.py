@@ -4,10 +4,10 @@ import sys
 
 
 class Results:
-    def __init__(self, result):
+    def __init__(self, player):
 
-        self.result = u'Результат: ' + str(result)
-        if result == -1:
+        self.result = u'Твоя ЗП: ' + str(player.bug_kill - (player.bug_miss*2)) + ' $'
+        if player.bug_kill <= -1:
             self.result = u'Конец игре'
         self.punkti = [[u'Ретест', (240, 270)], [u'Уйти', (250, 320)]]
         self.punkt = -1

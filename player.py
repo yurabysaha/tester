@@ -2,10 +2,9 @@
 import pyganim
 from pygame.image import load
 from pygame.sprite import Sprite
-from pygame.surface import Surface
 
 MOVE_SPEED = 7
-SCREEN_COLOR = (80, 80, 80)
+SCREEN_COLOR = (80, 80, 80, 0)
 
 MOVE_ANIMATION = [("images/player/player.png", 100), ("images/player/player-f1.png", 100), ("images/player/player-f2.png", 100)]
 
@@ -13,9 +12,7 @@ MOVE_ANIMATION = [("images/player/player.png", 100), ("images/player/player-f1.p
 class Player(Sprite):
     def __init__(self, x=10, y=535):
         Sprite.__init__(self)
-        self.image = Surface((45, 60))
-        self.image.fill(SCREEN_COLOR)
-        self.image = load("images/player/player.png")
+        self.image = load("images/player/player.png").convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
