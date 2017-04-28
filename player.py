@@ -14,6 +14,7 @@ class Player(Sprite):
         Sprite.__init__(self)
         self.image = load("images/player/player.png").convert_alpha()
         self.rect = self.image.get_rect()
+        self.name = ''
         self.rect.x = x
         self.rect.y = y
         self.bug_kill = 0

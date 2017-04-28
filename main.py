@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import random
+import string
 import sys, pygame
 
 from bonus import Bonus
@@ -23,12 +24,13 @@ screen = pygame.Surface((600, 600))
 bg_image = load('images/bg.png')
 '''Шрифти'''
 pygame.font.init()
-inf_font = pygame.font.Font(None, 25)
+inf_font = pygame.font.Font(None, 27)
 '''Меню'''
 menu = Menu()
 menu.menu(window)
 
 player = Player()
+player.name = string.join(menu.current_login, "")
 left = right = False
 sprite_group = pygame.sprite.Group()
 sprite_group.add(player)

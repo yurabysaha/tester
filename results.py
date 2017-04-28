@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pygame
 import sys
+from db import *
 
 
 class Results:
@@ -21,10 +22,11 @@ class Results:
             else:
                 screen.blit(menu_font.render(i[0], 1, (200, 154, 43)), i[1])
 
-    def results(self, window):
+    def results(self, window, player):
         done = True
         pygame.font.init()
         screen = pygame.Surface((600, 630))
+        db.update_result(player.name, player.bug_kill - (player.bug_miss * 2))
         while done:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: sys.exit()
