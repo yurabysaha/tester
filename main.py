@@ -46,7 +46,8 @@ fps = pygame.time.Clock()
 while True:
 
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: sys.exit()
+        if event.type == pygame.QUIT:
+            sys.exit()
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
@@ -116,7 +117,8 @@ while True:
 
     if timer.lost_time() < 0 or player.bug_kill <= -1:
         # Після натискання Ретест обнуляємо всі елементи в грі
-        Results(player).results(window)
+        res = Results(player)
+        res.results(window, player)
         player.refresh()
         timer.start_game()
         for i in bug_army:
