@@ -28,7 +28,8 @@ class Menu:
         login_font = pygame.font.Font(None, 35)
         while done:
             for event in pygame.event.get():
-                if event.type == pygame.QUIT: sys.exit()
+                if event.type == pygame.QUIT:
+                    sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_DOWN:
                         if len(self.punkti)-1 != self.punkt:

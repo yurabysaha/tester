@@ -21,15 +21,13 @@ class Bonus(Sprite):
             self.rect.y += self.speed
             self.collision(player, bonus_array, timer)
         else:
-            self.remove(bonus_array)
-            player.bug_miss += 1
+            self.delete(bonus_array)
 
     def collision(self, player, bonus_array, timer):
         if collide_rect(self, player):
-            self.remove(bonus_array)
-            player.bug_kill += 1
+            self.delete(bonus_array)
             timer.start += 5
 
-    def remove(self, bonus_array):
+    def delete(self, bonus_array):
         self.kill()
         bonus_array.remove(self)

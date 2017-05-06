@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import time
 
-DEFAULT_TIME = 3
+DEFAULT_TIME = 30
 
 
 class Timer(object):

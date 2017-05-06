@@ -2,13 +2,12 @@
 import pygame
 import sys
 
-from db import update_result
 
 
 class Results:
     def __init__(self, player):
         current_result = player.bug_kill - (player.bug_miss * 2)
-        update_result(player.name, current_result)
+        # update_result(player.name, current_result)
         self.result = u'Твоя ЗП: ' + str(player.bug_kill - (player.bug_miss*2)) + ' $'
         if player.bug_kill <= -1:
             self.result = u'Конец игре'
