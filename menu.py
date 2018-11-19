@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import string
-
 import pygame
 import sys
 from records import Records
@@ -59,7 +57,7 @@ class Menu:
             screen.fill((40, 110, 120))
             self.render(screen)
             pygame.draw.rect(screen, (0, 0, 0), (180, 100, 200, 30), 1)
-            screen.blit(login_font.render('Enter login: ' + string.join(self.current_login, ""), 1, (255, 154, 43)), (40, 100))
+            screen.blit(login_font.render('Enter login: ' + "".join(self.current_login), 1, (255, 154, 43)), (40, 100))
             window.blit(screen, (0, 0))
 
             pygame.display.flip()

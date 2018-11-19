@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import random
-import string
 import sys, pygame
 
 from bonus import Bonus
@@ -30,7 +29,7 @@ menu = Menu()
 menu.menu(window)
 
 player = Player()
-player.name = string.join(menu.current_login, "")
+player.name = "".join(menu.current_login)
 left = right = False
 sprite_group = pygame.sprite.Group()
 sprite_group.add(player)
