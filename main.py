@@ -29,19 +29,21 @@ inf_font = pygame.font.Font(None, 27)
 
 '''Menu'''
 menu = Menu()
-menu.menu(window)
+menu.display_menu(window)
 
 player = Player()
 player.name = "".join(menu.current_login)
 left = right = False
-sprite_group = pygame.sprite.Group()
-sprite_group.add(player)
+player_group = pygame.sprite.Group()
+player_group.add(player)
 
-bug_army = []
-bug_police = []
-bonus_array = []
+bugs_group = pygame.sprite.Group()
+bombs_group = pygame.sprite.Group()
+bonuses_group = pygame.sprite.Group()
+surikens_group = pygame.sprite.Group()
+
 timer = Timer()
-suriken_move = []
+
 fps = pygame.time.Clock()
 
 
@@ -58,10 +60,9 @@ while True:
                 right = True
 
             if event.key == pygame.K_SPACE:
-                if not suriken_move:
+                if not surikens_group:
                     suriken = Suriken(x=player.rect.x, y=player.rect.y)
-                    suriken_move.append(suriken)
-                    sprite_group.add(suriken)
+                    surikens_group.add(suriken)
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
@@ -71,7 +72,7 @@ while True:
 
             if event.key == pygame.K_ESCAPE:
                 timer.pause_game()
-                menu.menu(window)
+                menu.display_menu(window)
                 timer.unpause_game()
 
     '''Заливка'''
@@ -79,56 +80,54 @@ while True:
     info_screen.fill((50, 50, 50))
 
     # Create bugs
-    if len(bug_army) < 4:
-        while len(bug_army) != 4:
+    if len(bugs_group) < 4:
+        while len(bugs_group) != 4:
             rand = random.randrange(10, 550)
             rand_speed = random.randrange(1, 5)
             bug = Bug(x=rand, speed=rand_speed)
-            bug_army.append(bug)
-            sprite_group.add(bug)
+            bugs_group.add(bug)
 
     # Create bombs
-    if len(bug_police) < 2:
-        while len(bug_police) != 2:
+    if len(bombs_group) < 2:
+        while len(bombs_group) != 2:
             rand = random.randrange(10, 550)
             rand_speed = random.randrange(1, 5)
-            notbug = Bomb(x=rand, speed=rand_speed)
-            bug_police.append(notbug)
-            sprite_group.add(notbug)
+            bomb = Bomb(x=rand, speed=rand_speed)
+            bombs_group.add(bomb)
 
-    if not bonus_array and int(timer.lost_time()) % 10 == 0:
+    if not bonuses_group and int(timer.lost_time()) % 10 == 0:
             rand = random.randrange(10, 550)
             rand_speed = random.randrange(10, 11)
             bonus = Bonus(x=rand, speed=rand_speed)
-            bonus_array.append(bonus)
-            sprite_group.add(bonus)
-    sprite_group.draw(screen)
+            bonuses_group.add(bonus)
+
+    # Draw all elements
+    player_group.draw(screen)
+    bugs_group.draw(screen)
+    bombs_group.draw(screen)
+    bonuses_group.draw(screen)
+    surikens_group.draw(screen)
 
     # All moves here)
-    player.move(left, right)
-    for b in bug_army:
-        b.move(player, bug_army, suriken_move)
-    for b in bug_police:
-        b.move(player, bug_police, screen)
-    for i in suriken_move:
-        i.move(suriken_move)
-    for i in bonus_array:
-        i.move(player, bonus_array, timer)
+    player_group.update(left, right)
+    bugs_group.update(player, bugs_group, surikens_group)
+    bombs_group.update(player, bombs_group, screen)
+    bonuses_group.update(player, bonuses_group, timer)
+    surikens_group.update(surikens_group)
 
-    info_screen.blit(inf_font.render('Bags closed: '+str(player.bug_kill), 1, (212, 120, 49)), (10,5))
+    info_screen.blit(inf_font.render('Bags closed: '+str(player.bug_kill), 1, (212, 120, 49)), (10, 5))
     info_screen.blit(inf_font.render('Time to release: ' + str(int(timer.lost_time())), 1, (212, 120, 49)), (190, 5))
     info_screen.blit(inf_font.render('Bags in release: ' + str(player.bug_miss), 1, (212, 120, 49)), (400, 5))
 
     if timer.lost_time() < 0 or player.bug_kill <= -1:
-        # Після натискання Ретест обнуляємо всі елементи в грі
+
         res = Results(player)
         res.results(window, player)
+        # After click on Retest we empty all sprites
         player.refresh()
+        bugs_group.empty()
+        bombs_group.empty()
         timer.start_game()
-        for i in bug_army:
-            i.remove(bug_army)
-        for i in bug_police:
-            i.remove(bug_police)
 
     window.blit(info_screen, (0, 0))
     window.blit(screen, (0, 30))

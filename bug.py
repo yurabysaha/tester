@@ -19,34 +19,34 @@ class Bug(Sprite):
         self.animation.convert_alpha()
         self.animation.play()
 
-    def move(self, player, bug_army, suriken_move):
+    def update(self, player, bugs_group, suriken_group):
         if self.rect.y < 600:
             self.rect.y += self.speed
-            self.collision(player, bug_army, suriken_move)
+            self.collision(player, bugs_group, suriken_group)
             self.image.fill(SCREEN_COLOR)
             self.animation.blit(self.image, (0, 0))
 
         else:
-            self.remove(bug_army)
+            self.remove(bugs_group)
             player.bug_miss += 1
 
-    def collision(self, player, bug_army, suriken_move):
+    def collision(self, player, bugs_group, surikens_group):
         if collide_rect(self, player):
-            self.remove(bug_army)
+            self.remove(bugs_group)
             player.bug_kill += 1
-        for z in bug_army:
+        for z in bugs_group:
             if collide_rect(self, z):
                 self.rect.x -= 20
                 z.rect.x += 20
-        for i in suriken_move:
+        for i in surikens_group:
             if collide_rect(self, i):
-                self.remove(bug_army)
-                i.remove(suriken_move)
+                self.remove(bugs_group)
+                i.remove(surikens_group)
                 player.bug_kill += 1
 
-    def remove(self, bug_army):
+    def remove(self, bugs_group):
         self.kill()
         try:
-            bug_army.remove(self)
+            bugs_group.remove(self)
         except ValueError:
             pass

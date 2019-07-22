@@ -21,7 +21,7 @@ class Player(Sprite):
         self.animation = pyganim.PygAnimation(MOVE_ANIMATION)
         self.animation.play()
 
-    def move(self, left, right):
+    def update(self, left, right):
         if left:
             if self.rect.x > 8:
                 self.rect.x += -MOVE_SPEED

@@ -15,7 +15,7 @@ class Bonus(Sprite):
         self.rect.y = y
         self.speed = speed
 
-    def move(self, player, bonus_array, timer):
+    def update(self, player, bonus_array, timer):
         if self.rect.y < 600:
             self.rect.y += self.speed
             self.collision(player, bonus_array, timer)

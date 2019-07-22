@@ -11,7 +11,7 @@ class Bomb(Sprite):
         self.rect.y = y
         self.speed = speed
 
-    def move(self, player, bug_police, screen):
+    def update(self, player, bug_police, screen):
         if self.rect.y < 600:
             self.rect.y += self.speed
             self.collision(player, bug_police, screen)

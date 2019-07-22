@@ -5,7 +5,7 @@ from records import Records
 
 class Menu:
     def __init__(self):
-        self.punkti = [['Start', (200, 270)], ['Records', (220, 320)], ['Quit', (240, 370)]]
+        self.punkti = [['Start', (240, 270)], ['Records', (220, 320)], ['Quit', (240, 370)]]
         self.punkt = 0
         self.current_login = []
 
@@ -17,13 +17,13 @@ class Menu:
             else:
                 screen.blit(menu_font.render(i[0], 1, (200, 154, 43)), i[1])
 
-    def menu(self, window):
-        done = True
+    def display_menu(self, window):
+        display = True
         pygame.font.init()
         screen = pygame.Surface((800, 630))
 
         login_font = pygame.font.Font(None, 35)
-        while done:
+        while display:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -40,7 +40,7 @@ class Menu:
                             self.punkt = len(self.punkti)-1
                     if event.key == pygame.K_RETURN:
                         if self.punkt == 0:
-                            done = False
+                            display = False
                         elif self.punkt == 1:
                             Records().record(window)
                         else:
