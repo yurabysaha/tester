@@ -11,23 +11,24 @@ class Bomb(Sprite):
         self.rect.y = y
         self.speed = speed
 
-    def update(self, player, bug_police, screen):
+    def update(self, player, bomb_group, screen):
         if self.rect.y < 600:
             self.rect.y += self.speed
-            self.collision(player, bug_police, screen)
+            self.collision(player, bomb_group, screen)
         else:
-            self.remove(bug_police)
+            self.kill()
 
-    def collision(self, player, bug_police, screen):
+    def collision(self, player, bomb_group, screen):
+
+        # If bomb collide with player we remove -2 from player`s killed bugs
         if collide_rect(self, player):
             screen.fill((115, 43, 23))
-            self.remove(bug_police)
+            self.kill()
             player.bug_kill -= 2
-        for z in bug_police:
+            return
+
+        # If bomb collide between we resolve it.
+        for z in bomb_group:
             if collide_rect(self, z):
                 self.rect.x -= 20
                 z.rect.x += 20
-
-    def remove(self, bug_police):
-        self.kill()
-        bug_police.remove(self)

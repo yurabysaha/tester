@@ -20,15 +20,10 @@ class Suriken(Sprite):
         self.animation = pyganim.PygAnimation(ANIMATION)
         self.animation.play()
 
-    def update(self, surikens_group):
+    def update(self):
         if self.rect.y >= 0:
             self.image.fill(SCREEN_COLOR)
             self.animation.blit(self.image, (0,0))
             self.rect.y += -MOVE_SPEED
         else:
             self.kill()
-            surikens_group.remove(self)
-
-    def remove(self, surikens_group):
-        self.kill()
-        surikens_group.remove(self)

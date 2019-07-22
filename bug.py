@@ -31,22 +31,21 @@ class Bug(Sprite):
             player.bug_miss += 1
 
     def collision(self, player, bugs_group, surikens_group):
+
+        # If bug collide with player.
         if collide_rect(self, player):
-            self.remove(bugs_group)
+            self.kill()
             player.bug_kill += 1
+
+        # If bugs collide between self we resolve it
         for z in bugs_group:
             if collide_rect(self, z):
                 self.rect.x -= 20
                 z.rect.x += 20
+
+        # Check collision with any suriken
         for i in surikens_group:
             if collide_rect(self, i):
-                self.remove(bugs_group)
+                self.kill()
                 i.remove(surikens_group)
                 player.bug_kill += 1
-
-    def remove(self, bugs_group):
-        self.kill()
-        try:
-            bugs_group.remove(self)
-        except ValueError:
-            pass

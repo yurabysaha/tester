@@ -15,18 +15,15 @@ class Bonus(Sprite):
         self.rect.y = y
         self.speed = speed
 
-    def update(self, player, bonus_array, timer):
+    def update(self, player, timer):
         if self.rect.y < 600:
             self.rect.y += self.speed
-            self.collision(player, bonus_array, timer)
+            self.collision(player, timer)
         else:
-            self.delete(bonus_array)
+            self.kill()
 
-    def collision(self, player, bonus_array, timer):
+    def collision(self, player, timer):
         if collide_rect(self, player):
-            self.delete(bonus_array)
+            self.kill()
             timer.start += 5
 
-    def delete(self, bonus_array):
-        self.kill()
-        bonus_array.remove(self)

@@ -112,8 +112,8 @@ while True:
     player_group.update(left, right)
     bugs_group.update(player, bugs_group, surikens_group)
     bombs_group.update(player, bombs_group, screen)
-    bonuses_group.update(player, bonuses_group, timer)
-    surikens_group.update(surikens_group)
+    bonuses_group.update(player, timer)
+    surikens_group.update()
 
     info_screen.blit(inf_font.render('Bags closed: '+str(player.bug_kill), 1, (212, 120, 49)), (10, 5))
     info_screen.blit(inf_font.render('Time to release: ' + str(int(timer.lost_time())), 1, (212, 120, 49)), (190, 5))
