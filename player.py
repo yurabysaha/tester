@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pyganim
 from pygame.image import load
 from pygame.sprite import Sprite

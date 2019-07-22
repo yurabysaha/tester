@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import time
 
 DEFAULT_TIME = 30

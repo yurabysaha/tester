@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 import pygame
 import sys
 
 
 class Records:
     def __init__(self):
-        self.punkti = [[u'User1 = 450 $', (250, 170)], [u'User2 = 420 $', (250, 220)], [u'User3 = 390 $', (250, 270)]]
+        self.punkti = [['User1 = 450 $', (250, 170)], ['User2 = 420 $', (250, 220)], ['User3 = 390 $', (250, 270)]]
 
     def render(self, screen):
         menu_font = pygame.font.Font(None, 50)

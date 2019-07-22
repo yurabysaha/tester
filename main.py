@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 import random
 import sys, pygame
 
 from bonus import Bonus
 from menu import Menu
-from not_bug import NotBug
+from bomb import Bomb
 from player import Player
 from bug import Bug
 from results import Results
@@ -14,17 +13,21 @@ from pygame.image import load
 
 pygame.init()
 pygame.mouse.set_visible(False)
-''' Вікно '''
+
+''' Window '''
 size = width, height = 600, 630
 window = pygame.display.set_mode(size)
-''' Скріни '''
+
+''' Screens '''
 info_screen = pygame.Surface((600, 30))
 screen = pygame.Surface((600, 600))
 bg_image = load('images/bg.png')
-'''Шрифти'''
+
+'''Fonts'''
 pygame.font.init()
 inf_font = pygame.font.Font(None, 27)
-'''Меню'''
+
+'''Menu'''
 menu = Menu()
 menu.menu(window)
 
@@ -75,8 +78,7 @@ while True:
     screen.blit(bg_image, (0, 0))
     info_screen.fill((50, 50, 50))
 
-    player.move(left, right)
-    # Створюємо баги
+    # Create bugs
     if len(bug_army) < 4:
         while len(bug_army) != 4:
             rand = random.randrange(10, 550)
@@ -84,12 +86,13 @@ while True:
             bug = Bug(x=rand, speed=rand_speed)
             bug_army.append(bug)
             sprite_group.add(bug)
-    # Створюємо не баги
+
+    # Create bombs
     if len(bug_police) < 2:
         while len(bug_police) != 2:
             rand = random.randrange(10, 550)
             rand_speed = random.randrange(1, 5)
-            notbug = NotBug(x=rand, speed=rand_speed)
+            notbug = Bomb(x=rand, speed=rand_speed)
             bug_police.append(notbug)
             sprite_group.add(notbug)
 
@@ -101,6 +104,8 @@ while True:
             sprite_group.add(bonus)
     sprite_group.draw(screen)
 
+    # All moves here)
+    player.move(left, right)
     for b in bug_army:
         b.move(player, bug_army, suriken_move)
     for b in bug_police:
@@ -110,9 +115,9 @@ while True:
     for i in bonus_array:
         i.move(player, bonus_array, timer)
 
-    info_screen.blit(inf_font.render(u'Багов закрыто: '+str(player.bug_kill), 1, (212, 120, 49)), (10,5))
-    info_screen.blit(inf_font.render(u'Время до релиза: ' + str(int(timer.lost_time())), 1, (212, 120, 49)), (190, 5))
-    info_screen.blit(inf_font.render(u'Багов в релизе: ' + str(player.bug_miss), 1, (212, 120, 49)), (400, 5))
+    info_screen.blit(inf_font.render('Bags closed: '+str(player.bug_kill), 1, (212, 120, 49)), (10,5))
+    info_screen.blit(inf_font.render('Time to release: ' + str(int(timer.lost_time())), 1, (212, 120, 49)), (190, 5))
+    info_screen.blit(inf_font.render('Bags in release: ' + str(player.bug_miss), 1, (212, 120, 49)), (400, 5))
 
     if timer.lost_time() < 0 or player.bug_kill <= -1:
         # Після натискання Ретест обнуляємо всі елементи в грі

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from pygame.sprite import Sprite, collide_rect
 import pyganim
 from pygame.image import load
@@ -34,7 +33,7 @@ class Bug(Sprite):
     def collision(self, player, bug_army, suriken_move):
         if collide_rect(self, player):
             self.remove(bug_army)
-            player.bug_kill +=1
+            player.bug_kill += 1
         for z in bug_army:
             if collide_rect(self, z):
                 self.rect.x -= 20

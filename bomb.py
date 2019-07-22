@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 from pygame.sprite import Sprite, collide_rect
 from pygame.image import load
 
 
-class NotBug(Sprite):
+class Bomb(Sprite):
     def __init__(self, x=10, y=10, speed=3):
         Sprite.__init__(self)
         self.image = load("images/feature/feature.png")

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pygame
 import sys
 from records import Records
@@ -6,7 +5,7 @@ from records import Records
 
 class Menu:
     def __init__(self):
-        self.punkti = [[u'Го тестить!', (200, 270)], [u'Рекорд', (220, 320)], [u'Уйти', (240, 370)]]
+        self.punkti = [['Start', (200, 270)], ['Records', (220, 320)], ['Quit', (240, 370)]]
         self.punkt = 0
         self.current_login = []
 

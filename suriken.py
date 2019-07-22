@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from pygame.sprite import Sprite
 import pyganim
 from pygame.image import load
@@ -10,6 +9,7 @@ ANIMATION = [("images/suriken/suriken.png", 120), ("images/suriken/suriken1.png"
 
 
 class Suriken(Sprite):
+    """Its a type of weapon."""
     def __init__(self, x=10, y=535):
         Sprite.__init__(self)
         self.image = load('images/suriken/suriken.png').convert_alpha()

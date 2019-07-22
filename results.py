@@ -3,15 +3,14 @@ import pygame
 import sys
 
 
-
 class Results:
     def __init__(self, player):
         current_result = player.bug_kill - (player.bug_miss * 2)
         # update_result(player.name, current_result)
-        self.result = u'Твоя ЗП: ' + str(player.bug_kill - (player.bug_miss*2)) + ' $'
+        self.result = 'Yours salary: ' + str(player.bug_kill - (player.bug_miss*2)) + ' $'
         if player.bug_kill <= -1:
-            self.result = u'Конец игре'
-        self.punkti = [[u'Ретест', (240, 270)], [u'Уйти', (250, 320)]]
+            self.result = 'Game over'
+        self.punkti = [['Retest', (240, 270)], ['Quit', (250, 320)]]
         self.punkt = -1
 
     def render(self, screen):
